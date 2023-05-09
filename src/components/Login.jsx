@@ -12,6 +12,7 @@ export const Login = () => {
                         with a Disney+ subscription. As of 03/26/21, the price of Disney+
                         and The Disney Bundle will increase by $1.
                     </Description>
+                    <CTALogoTwo src="/images/cta-logo-two.png" />
                 </CTA>
                 <BgImage />
             </Content>
@@ -79,4 +80,10 @@ const Description = styled.p`
     letter-spacing: 1.5px;
     line-height: 1.5;
     margin: 0 0 24px;
+`
+
+const CTALogoTwo = styled.img`
+    max-width: 600px;
+    margin-bottom: 20px;
+    width: 100%;
 `
