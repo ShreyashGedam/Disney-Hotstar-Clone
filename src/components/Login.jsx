@@ -22,8 +22,10 @@ export const Login = () => {
 
 const Container = styled.section`
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   text-align: center;
+  margin-top: 70px;
 `;
 
 const Content = styled.div`
