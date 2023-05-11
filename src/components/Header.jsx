@@ -1,6 +1,12 @@
 import styled from "styled-components";
+import { getAuth, signInWithPopup } from "firebase/auth";
+import { provider } from "../firebase";
 
 export const Header = () => {
+  const handleAuth = async () => {
+    const auth = getAuth();
+    signInWithPopup(auth, provider);
+  };
   return (
     <Nav>
       <Logo>
@@ -11,7 +17,28 @@ export const Header = () => {
           <img src="/images/home-icon.svg" />
           <span>HOME</span>
         </a>
+        <a>
+          <img src="/images/search-icon.svg" alt="SEARCH" />
+          <span>SEARCH</span>
+        </a>
+        <a>
+          <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
+          <span>WATCHLIST</span>
+        </a>
+        <a>
+          <img src="/images/original-icon.svg" alt="ORIGINALS" />
+          <span>ORIGINALS</span>
+        </a>
+        <a>
+          <img src="/images/movie-icon.svg" alt="MOVIES" />
+          <span>MOVIES</span>
+        </a>
+        <a>
+          <img src="/images/series-icon.svg" alt="SERIES" />
+          <span>SERIES</span>
+        </a>
       </NavMenu>
+      <Login onClick={handleAuth}>LOGIN</Login>
     </Nav>
   );
 };
@@ -38,7 +65,6 @@ const Logo = styled.a`
 `;
 
 const NavMenu = styled.div`
-  border: 1px solid;
   height: 50px;
   width: 300px;
   margin-right: auto;
@@ -61,7 +87,7 @@ const NavMenu = styled.div`
       color: rgb(249, 249, 249);
       font-size: 13px;
       letter-spacing: 1.42px;
-      padding: 2px 0px;
+      padding: 2px 5px;
       position: relative;
       line-height: 1.08;
 
@@ -85,5 +111,25 @@ const NavMenu = styled.div`
         opacity: 1 !important;
       }
     }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+`;
+
+const Login = styled.a`
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  border: 1px solid #f9f9f9;
+  padding: 8px 16px;
+  border-radius: 4px;
+  letter-spacing: 1.5px;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    background-color: #f9f9f9;
+    color: #000;
+    border-color: tra;
   }
 `;
