@@ -1,11 +1,29 @@
 import styled from "styled-components";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { provider } from "../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserLoginDetails } from "../features/user/userSlice";
 
 export const Header = () => {
-  const handleAuth = async () => {
+  const dispatch = useDispatch();
+
+  const name = useSelector((state) => state.user.name);
+  const email = useSelector((state) => state.user.email);
+  const photo = useSelector((state) => state.user.photo);
+
+  const handleAuth = () => {
     const auth = getAuth();
-    signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        dispatch(
+          setUserLoginDetails({
+            name: res.user.displayName,
+            email: res.user.email,
+            photo: res.user.photoURL,
+          })
+        );
+      })
+      .catch((err) => alert(err.message));
   };
   return (
     <Nav>
@@ -38,7 +56,11 @@ export const Header = () => {
           <span>SERIES</span>
         </a>
       </NavMenu>
-      <Login onClick={handleAuth}>LOGIN</Login>
+      {!name ? (
+        <Login onClick={handleAuth}>LOGIN</Login>
+      ) : (
+        <img src={photo}></img>
+      )}
     </Nav>
   );
 };
