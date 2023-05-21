@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { provider } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserLoginDetails } from "../features/user/userSlice";
+import {
+  setSignOutState,
+  setUserLoginDetails,
+} from "../features/user/userSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,16 +23,23 @@ export const Header = () => {
         setUser(user);
         navigate("/home");
       }
-    });
+    }); 
   }, [name]);
 
   const handleAuth = () => {
     const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        setUser(res.user);
-      })
-      .catch((err) => alert(err.message));
+    if (!name) {
+      signInWithPopup(auth, provider)
+        .then((res) => {
+          setUser(res.user);
+        })
+        .catch((err) => alert(err.message));
+    } else {
+      auth.signOut().then(() => {
+        dispatch(setSignOutState());
+        navigate("/");
+      });
+    }
   };
 
   const setUser = (user) => {
@@ -77,7 +87,7 @@ export const Header = () => {
           </NavMenu>
           <SignOut>
             <UserImage src={photo} />
-            <DropDown>
+            <DropDown onClick={handleAuth}>
               <span>Sign Out</span>
             </DropDown>
           </SignOut>
@@ -181,14 +191,9 @@ const Login = styled.a`
   }
 `;
 
-const SignOut = styled.div`
-  position: relative;
-  height: 48px;
-  width: 48px;
-`;
-
 const UserImage = styled.img`
   height: 100%;
+  border-radius: 50%;
 `;
 
 const DropDown = styled.div`
@@ -205,4 +210,17 @@ const DropDown = styled.div`
   width: 100px;
   cursor: pointer;
   opacity: 0;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  height: 48px;
+  width: 48px;
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
 `;
