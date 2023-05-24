@@ -23,7 +23,7 @@ export const Header = () => {
         setUser(user);
         navigate("/home");
       }
-    }); 
+    });
   }, [name]);
 
   const handleAuth = () => {

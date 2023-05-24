@@ -2,15 +2,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Recommends = () => {
-  const recommends = useSelector((state) => state.movie.recommend);
-
+export const NewDisney = () => {
+  const newDisney = useSelector((state) => state.movie.newDisney);
   return (
     <Container>
-      <h4>Recommended for You</h4>
+      <h4>New to Disney+</h4>
       <Contain>
-        {recommends &&
-          recommends.map((e) => (
+        {newDisney &&
+          newDisney.map((e) => (
             <Wrap key={e.id}>
               <Link to={`/detail/${e.type}/${e.id}`}>
                 <img src={e.cardImg} alt="" />
