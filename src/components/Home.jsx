@@ -9,7 +9,13 @@ import { getDatabase, onValue, ref } from "firebase/database";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { setMovies } from "../features/movie/movieSlice";
+import {
+  newMovies,
+  originalMovies,
+  reccommendMovies,
+  setMovies,
+  trendingMovies,
+} from "../features/movie/movieSlice";
 
 export const Home = () => {
   const userName = useSelector((state) => state.user.name);
@@ -79,6 +85,13 @@ export const Home = () => {
       );
     });
   }, [userName]);
+
+  useEffect(() => {
+    dispatch(newMovies());
+    dispatch(originalMovies());
+    dispatch(reccommendMovies());
+    dispatch(trendingMovies());
+  }, []);
 
   return (
     <Container>

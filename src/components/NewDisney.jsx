@@ -10,8 +10,8 @@ export const NewDisney = () => {
       <Contain>
         {newDisney &&
           newDisney.map((e) => (
-            <Wrap key={e.id}>
-              <Link to={`/detail/${e.type}/${e.id}`}>
+            <Wrap key={e._id}>
+              <Link to={`/detail/${e.type}/${e._id}`}>
                 <img src={e.cardImg} alt="" />
               </Link>
             </Wrap>

@@ -7,16 +7,16 @@ export const Detail = () => {
   let { id, type } = useParams();
   const [detailData, setDetailData] = useState({});
 
+  if (type === "new") {
+    type = "newDisney";
+  }
   const movieType = useSelector((state) => state.movie);
 
   useEffect(() => {
-    if (type === "new") {
-      type = "newDisney";
-    }
     var arr = movieType[type];
     if (arr) {
       for (var i = 0; i < arr.length; i++) {
-        if (arr[i].id === id) {
+        if (arr[i]._id === id) {
           setDetailData(arr[i]);
           break;
         }
