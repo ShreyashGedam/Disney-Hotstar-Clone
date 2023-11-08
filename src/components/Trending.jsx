@@ -9,14 +9,19 @@ export const Trending = () => {
     <Container>
       <h4>Trending</h4>
       <Contain>
-        {trending &&
+        {trending ? (
           trending.map((e) => (
             <Wrap key={e._id}>
               <Link to={`/detail/${e.type}/${e._id}`}>
                 <img src={e.cardImg} alt="" />
               </Link>
             </Wrap>
-          ))}
+          ))
+        ) : (
+          <Skeleton>
+            <p>...Loading</p>
+          </Skeleton>
+        )}
       </Contain>
     </Container>
   );
@@ -24,6 +29,16 @@ export const Trending = () => {
 
 const Container = styled.div`
   padding: 0 0 26px;
+`;
+
+const Skeleton = styled.div`
+  background-color: rgba(249, 249, 249, 0.1);
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Contain = styled.div`
